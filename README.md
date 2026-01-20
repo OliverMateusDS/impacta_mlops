@@ -147,12 +147,14 @@ Execução padrão:
 
 ```bash
 python train.py
+```
 
 
 É possível ajustar hiperparâmetros via linha de comando:
 
 ```bash
 python train.py --max_depth 3
+```
 
 Durante o treino, são registrados no MLflow:
 parâmetros
@@ -170,6 +172,7 @@ Execução dos testes:
 
 ```bash
 pytest
+```
 
 Os testes cobrem:
 carregamento e split dos dados
