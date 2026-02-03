@@ -179,3 +179,114 @@ carregamento e split dos dados
 construção do pipeline de modelagem
 execução completa do script de treino
 Esses testes ajudam a garantir que refatorações não quebrem o fluxo principal.
+
+# Aula 4 – Deploy, Operação e Ciclo Completo de MLOps
+
+Esta aula finaliza o projeto e fecha o ciclo completo de **MLOps**, mostrando como um modelo treinado e versionado pode ser **consumido por uma aplicação real**, com controle de ambiente e foco em operação.
+
+---
+
+## Contexto da Aula 4
+
+Até o final da Aula 3, o projeto já possuía:
+
+- dados organizados e padronizados  
+- pipeline de treino estruturado  
+- versionamento de código e experimentos  
+- rastreabilidade completa com MLflow  
+- modelo registrado e validado  
+
+Na **Aula 4**, o foco deixa de ser o treino do modelo e passa a ser **o uso do modelo**, simulando um cenário real de deploy.
+
+---
+
+## Arquitetura adotada
+
+Para manter o ambiente simples, estável e didático, foi adotada a seguinte arquitetura:
+
+- **MLflow rodando localmente (host)**  
+- responsável por tracking, registry e histórico  
+
+- **Aplicação Streamlit rodando em Docker**  
+- consome o modelo registrado no MLflow (cópia local) 
+- executa inferência em tempo real  
+
+---
+
+## Aplicação de predição
+
+Foi criada uma aplicação em **Streamlit** para previsão do preço de diamantes.
+
+A aplicação:
+
+- carrega o modelo campeão localmente, mas no futuro queremos direto do **MLflow Model Registry**  
+- recebe dados do usuário via formulário  
+- executa inferência em tempo real  
+- retorna a previsão de preço  
+
+O modelo **não é treinado no app**, apenas consumido, reforçando a separação entre treino e inferência.
+
+---
+
+## Dockerização do app
+
+A aplicação Streamlit foi empacotada em um container Docker, garantindo:
+
+- isolamento de ambiente  
+- reprodutibilidade  
+- facilidade de execução em qualquer máquina  
+
+O Docker é utilizado apenas onde agrega valor, sem forçar a containerização de todos os componentes do pipeline.
+
+---
+
+## Execução do projeto
+
+### 1. Subir o MLflow localmente
+
+Na raiz do projeto, execute:
+
+```bash
+python -m mlflow server
+```
+
+A interface do MLflow ficará disponível em:
+http://localhost:5000
+---
+
+### 2. Subir a aplicação com Docker
+
+Em outro terminal, execute:
+`docker compose up --build`
+A aplicação Streamlit ficará disponível em:
+http://localhost:8501
+---
+## Ciclo completo de MLOps
+Ao final da Aula 4, o projeto percorre todas as etapas do ciclo de MLOps:
+- exploração e entendimento dos dados
+- organização do projeto
+- treino estruturado e versionado
+- rastreabilidade de experimentos
+- registro de modelos
+- consumo do modelo em aplicação
+- controle de ambiente e execução
+
+O foco do curso não é apenas treinar modelos, mas entender como mantê-los vivos, confiáveis e utilizáveis.
+
+---
+
+## Encerramento
+Este projeto representa uma visão prática e realista de MLOps, mostrando que os principais desafios não estão apenas no modelo, mas em:
+- ambiente
+- versionamento
+- rastreabilidade
+- deploy
+- operação
+
+---
+
+# ToDo
+- mlflow no docker
+- rever interface gráfica
+- automatizar testes no github
+
