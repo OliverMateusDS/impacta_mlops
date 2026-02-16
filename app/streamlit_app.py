@@ -1,5 +1,4 @@
 import joblib
-import pickle
 import pandas as pd
 import streamlit as st
 import mlflow
@@ -17,10 +16,10 @@ def load_model():
 
 @st.cache_resource
 def load_model_local():
-    model_path = "models/model.pkl"
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
+    model_path = "models/diamond_price_model.joblib"
+    model = joblib.load(model_path)
     return model
+
 
 def main():
     st.title("Previsão de preço de diamantes")
