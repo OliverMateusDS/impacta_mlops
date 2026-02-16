@@ -23,8 +23,8 @@ def main():
     os.makedirs("models", exist_ok=True)
 
     # aqui você aponta para o servidor MLflow
-    mlflow.set_tracking_uri("http://localhost:5000")
-    mlflow.set_experiment("diamond_price_experiment")
+    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "file:./mlruns")
+    mlflow.set_tracking_uri(tracking_uri)
 
     # dados
     X_train, X_test, y_train, y_test = train_test_split_diamonds(
